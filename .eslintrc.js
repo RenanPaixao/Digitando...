@@ -14,7 +14,7 @@ module.exports = {
         quotes: ['error', 'single', {allowTemplateLiterals: true}],
         'no-unused-vars': ['error', {args: 'all'}],
         'no-unreachable': 'error',
-        semi: ['error', 'always', {omitLastInOneLineBlock: true}]
+        semi: ['error', 'never']
     },
     overrides: [
         {
@@ -24,4 +24,4 @@ module.exports = {
             }
         }
     ]
-};
+}
