@@ -1,18 +1,13 @@
 <template>
-	<div>
-		<press-start v-if="isPaused" @start="startTyping"/>
-	</div>
+	<Header/>
+	<typing/>
 </template>
 
 <script lang="ts" setup>
-import PressStart from './components/PressStart.vue'
-import { ref } from 'vue'
-
-const isPaused = ref(true)
-function startTyping(){
-	isPaused.value = !isPaused.value
-}
+import Header from '@/components/Header.vue'
+import Typing from '@/views/Typing.vue'
 </script>
 
 <style lang="scss">
+@import './assets/styles/reset.scss';
 </style>

@@ -5,21 +5,11 @@
 </template>
 
 <script lang="ts" setup>
-import { onBeforeUnmount, onMounted } from 'vue'
-
 const emits = defineEmits(['start'])
 function start(){
 	emits('start')
 }
 
-onMounted(()=>{
-	document.addEventListener('keydown', ()=>{
-		start()
-	})
-})
-onBeforeUnmount(()=>{
-	document.removeEventListener('keydown', ()=>{})
-})
 </script>
 
 <style lang="scss" scoped>

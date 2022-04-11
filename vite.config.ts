@@ -1,7 +1,7 @@
-import { defineConfig } from 'vite';
-import vue from '@vitejs/plugin-vue';
+import { defineConfig } from 'vite'
+import vue from '@vitejs/plugin-vue'
 // @ts-ignore
-import path from 'path';
+import path from 'path'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -14,10 +14,8 @@ export default defineConfig({
     css: {
         preprocessorOptions: {
             scss: {
-                additionalData: `@use '@/assets/styles/main.scss' as *;
-                @import "@/assets/styles/reset.scss";
-                `
+                additionalData: `@use '@/assets/styles/main.scss' as *;`
             }
         }
     }
-});
+})

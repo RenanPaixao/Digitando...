@@ -1,11 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@600;700&display=swap');
+$color-background: #191622;
+$color-border: #E1E1E6;
+$color-white: #FFF;
+$color-black: #000;
+
 @mixin overlay {
   position: fixed;
   top: 0;
   bottom: 0;
   left: 0;
   right: 0;
-  background-color: #191622;
+  background-color: $color-background;
   opacity: 0.9;
   display: flex;
   justify-content: center;
