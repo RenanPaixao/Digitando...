@@ -12,7 +12,7 @@ import Timer from '@/components/Timer.vue'
 <style scoped>
 header{
 	width: 100%;
-	padding: 2rem 0;
+	padding-top: 8rem;
 	display: flex;
 	justify-content: center;
 	position: absolute;

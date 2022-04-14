@@ -1,25 +1,35 @@
 <template>
 	<section class="c-typing">
-		<press-start v-if="isPaused" @start="isPaused=false"/>
+		<press-start v-if="showInitialScreen"/>
+		<text-spy class="container-words"/>
 	</section>
 </template>
 
 <script lang="ts" setup>
 import PressStart from '@/components/PressStart.vue'
-import { onBeforeMount, ref } from 'vue'
+import TextSpy from '@/components/TextSpy.vue'
+import { useStore } from 'vuex'
+import { ref, watch } from 'vue'
 
-const isPaused = ref(true)
-onBeforeMount(()=>{
-	document.addEventListener('keydown', ()=>{
-		isPaused.value = false
-	})
+const store = useStore()
+
+const showInitialScreen = ref(true)
+
+watch(store.state.screenState, oldValue => {
+	showInitialScreen.value = oldValue.isInitialScreen
 })
 </script>
 
 <style lang="scss" scoped>
 .c-typing{
-	background-color: $color-white;
+	background-color: $color-background;
 	height: 100vh;
+}
+.container-words{
+	position: relative;
+	top: 35%;
+	left: 50%;
+	transform: translateX(-50%);
 }
 
 </style>
