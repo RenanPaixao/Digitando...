@@ -14,7 +14,8 @@ const store = useStore()
 
 const id = ()=> Date.now()
 
-const words = ['one', 'two', 'three']
+//words limit - 80
+const words = Array(80).fill('one')
 const text = words.join(' ').split('')
 
 const allLetters = document.getElementsByClassName('letters')
@@ -32,6 +33,16 @@ function passIndicatorToNextLetter(){
 	removeIndicator(indicatorPosition)
 	indicatorPosition++
 }
+
+function addClassToLetter(letter: string){
+	const isCorrect = text[indicatorPosition] === letter
+	if(isCorrect){
+		allLetters[indicatorPosition].classList.add('letters--correct')
+	}else{
+		allLetters[indicatorPosition].classList.add('letters--wrong')
+	}
+}
+
 watch(store.state.screenState, (state)=>{
 	//Start indicator blinking
 	if(!state.isStopped){
@@ -47,7 +58,8 @@ watch(store.state.screenState, (state)=>{
 
 watch(store.state.screenState, (state)=>{
 	if(!state.isInitialScreen){
-		document.addEventListener('keypress', ()=>{
+		document.addEventListener('keypress', (eventValue)=>{
+			addClassToLetter(eventValue.key)
 			passIndicatorToNextLetter()
 		})
 	}
@@ -58,7 +70,8 @@ watch(store.state.screenState, (state)=>{
 <style lang="scss" scoped>
 .container{
 	display: flex;
-	width: min-content;
+	flex-wrap: wrap;
+	width: 80%;
 	
 	color: $color-border;
 }
@@ -67,9 +80,12 @@ watch(store.state.screenState, (state)=>{
 	min-width: 0.4ch;
 	
 	border-left: transparent solid 2px;
-	
+	color: $color-text-darker;
 	&--correct{
-	
+		color: $color-white;
+	}
+	&--wrong{
+		color: $color-text-wrong;
 	}
 }
 .indicator{
