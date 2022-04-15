@@ -56,11 +56,16 @@ watch(store.state.screenState, (state)=>{
 	}
 })
 
-watch(store.state.screenState, (state)=>{
-	if(!state.isInitialScreen){
+watch(store.state.screenState, ()=>{
+	if(store.getters.isTypingStopped){
 		document.addEventListener('keypress', (eventValue)=>{
-			addClassToLetter(eventValue.key)
-			passIndicatorToNextLetter()
+			const canContinueTyping = text.length -1 !== indicatorPosition
+			if(canContinueTyping){
+				addClassToLetter(eventValue.key)
+				passIndicatorToNextLetter()
+			}else{
+				store.commit('toggleIsStopped')
+			}
 		})
 	}
 })

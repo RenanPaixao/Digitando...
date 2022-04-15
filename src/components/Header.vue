@@ -1,11 +1,18 @@
 <template>
 	<header>
-		<timer :stop="false" class="timer"/>
+		<timer :stop="false" @stop="onStop" class="timer"/>
 	</header>
 </template>
 
 <script lang="ts" setup>
 import Timer from '@/components/Timer.vue'
+import { useStore } from 'vuex'
+
+const store = useStore()
+
+function onStop(){
+	store.commit('toggleIsStopped')
+}
 
 </script>
 

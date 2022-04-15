@@ -18,9 +18,9 @@ function start(){
 	store.commit('toggleIsInitialScreen')
 }
 
-watch(store.state.screenState, (state)=>{
+watch(store.state.screenState, ()=>{
 	document.addEventListener('keydown', ()=>{
-		if(state.isInitialScreen){
+		if(store.getters.canStartTyping){
 			start()
 		}
 })

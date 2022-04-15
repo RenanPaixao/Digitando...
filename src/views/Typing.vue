@@ -15,8 +15,8 @@ const store = useStore()
 
 const showInitialScreen = ref(true)
 
-watch(store.state.screenState, oldValue => {
-	showInitialScreen.value = oldValue.isInitialScreen
+watch(store.state.screenState, state => {
+	showInitialScreen.value = state.isInitialScreen
 })
 </script>
 

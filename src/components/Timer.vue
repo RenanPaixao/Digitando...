@@ -22,11 +22,13 @@
 import { computed, reactive, ref, watch } from 'vue'
 import { useStore } from 'vuex'
 
+const emit = defineEmits(['stop'])
+
 const store = useStore()
 const { screenState }  = store.state
 const time:any = reactive({
-	minutes: 0,
-	seconds: 5
+	minutes: 1,
+	seconds: 0
 })
 
 const timeToShow = computed(()=>{
@@ -81,6 +83,7 @@ watch(()=> time.seconds, (_, prevTime)=>{
 		time.seconds = 59
 	}
 	if(time.minutes === 0 && time.seconds === 0){
+		emit('stop')
 		clearInterval(timeIn)
 	}
 })
