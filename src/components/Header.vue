@@ -1,5 +1,5 @@
 <template>
-	<header>
+	<header v-if="canShow">
 		<timer :stop="false" @stop="onStop" class="timer"/>
 	</header>
 </template>
@@ -7,11 +7,14 @@
 <script lang="ts" setup>
 import Timer from '@/components/Timer.vue'
 import { useStore } from 'vuex'
+import { ref } from 'vue'
 
 const store = useStore()
+const canShow = ref(true)
 
 function onStop(){
 	store.commit('toggleIsStopped')
+	canShow.value = false
 }
 
 </script>

@@ -1,19 +1,20 @@
 <template>
 	<section class="c-typing">
 		<press-start v-if="showInitialScreen"/>
-		<text-spy class="container-words"/>
+		<text-spy :words="words" class="container-words"/>
 	</section>
 </template>
 
 <script lang="ts" setup>
+import Http from '../services/Api'
 import PressStart from '@/components/PressStart.vue'
 import TextSpy from '@/components/TextSpy.vue'
 import { useStore } from 'vuex'
 import { ref, watch } from 'vue'
 
 const store = useStore()
-
 const showInitialScreen = ref(true)
+const words = Http.getWords()
 
 watch(store.state.screenState, state => {
 	showInitialScreen.value = state.isInitialScreen

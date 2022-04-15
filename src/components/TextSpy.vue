@@ -11,12 +11,10 @@ import { watch } from 'vue'
 import { useStore } from 'vuex'
 
 const store = useStore()
-
 const id = ()=> Date.now()
+const props = defineProps<{words: string[]}>()
 
-//words limit - 80
-const words = Array(80).fill('one')
-const text = words.join(' ').split('')
+const text = props.words.join(' ').split('')
 
 const allLetters = document.getElementsByClassName('letters')
 let indicatorPosition = 0
