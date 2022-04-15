@@ -9,6 +9,7 @@
 
 <script lang="ts" setup>
 import { useStore } from 'vuex'
+import { onBeforeUnmount, watch } from 'vue'
 
 const store = useStore()
 
@@ -16,6 +17,18 @@ function start(){
 	store.commit('toggleIsStopped')
 	store.commit('toggleIsInitialScreen')
 }
+
+watch(store.state.screenState, (state)=>{
+	document.addEventListener('keydown', ()=>{
+		if(state.isInitialScreen){
+			start()
+		}
+})
+}, {immediate:true})
+
+onBeforeUnmount(()=>{
+	document.removeEventListener('keydown', ()=> {})
+})
 
 </script>
 
