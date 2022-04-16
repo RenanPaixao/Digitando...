@@ -15,7 +15,7 @@ const store = useStore()
 const showInitialScreen = ref(true)
 const words = ref([])
 
-watch(store.state.screenState, state => {
+watch(store.state, state => {
 	showInitialScreen.value = state.isInitialScreen
 	
 	if(state.words.length){

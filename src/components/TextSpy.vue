@@ -42,7 +42,7 @@ function addClassToLetter(letter: string){
 	}
 }
 
-watch(store.state.screenState, (state)=>{
+watch(store.state, (state)=>{
 	//Start indicator blinking
 	const blinkInterval = setInterval(()=>{
 		if(!state.isStopped){
@@ -71,7 +71,7 @@ function handleCaretAndTyping(eventValue: any){
 		removeKeyboardListener()
 	}
 }
-watch(store.state.screenState, ()=>{
+watch(store.state, ()=>{
 	if(store.getters.isTypingRunning){
 		document.addEventListener('keypress', handleCaretAndTyping )
 	}else{

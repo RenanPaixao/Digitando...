@@ -25,7 +25,7 @@ import { useStore } from 'vuex'
 const emit = defineEmits(['stop'])
 
 const store = useStore()
-const { screenState }  = store.state
+const state  = store.state
 const time:any = reactive({
 	minutes: 1,
 	seconds: 0
@@ -40,7 +40,7 @@ const timeToShow = computed(()=>{
 const isChoosing = ref(false)
 
 function openChooseTimeBox(){
-	if(screenState.isInitialScreen){
+	if(state.isInitialScreen){
 		isChoosing.value = true
 	}
 }
@@ -67,7 +67,7 @@ function reset(){
 }
 let timeIn: NodeJS.Timer
 
-watch(()=> screenState.isStopped, (stop)=>{
+watch(()=> state.isStopped, (stop)=>{
 	if(stop){
 		clearInterval(timeIn)
 	}else {
@@ -97,7 +97,7 @@ h6{
 	
 	text-align: center;
 	color: $color-text-yellow;
-	font-family: "Fira Code";
+	font-family: "Fira Code", sans-serif;
 }
 .overlay{
 	display: block;

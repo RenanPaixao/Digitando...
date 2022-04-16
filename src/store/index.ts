@@ -5,23 +5,21 @@ import Http from '../services/Api'
 export default createStore({
 	state: ():State => {
 		return {
-			screenState:{
 				isInitialScreen: true,
 				isTimerOpen: false,
 				isStopped: true,
 				words: []
-			}
 		}
 	},
 	getters: {
-		showMetric({screenState}){
-			return !screenState.isInitialScreen && screenState.isStopped
+		showMetric(state){
+			return !state.isInitialScreen && state.isStopped
 		},
-		isTypingRunning({screenState}){
-			return !screenState.isInitialScreen && !screenState.isStopped
+		isTypingRunning(state){
+			return !state.isInitialScreen && !state.isStopped
 		},
-		canStartTyping({screenState}){
-			return screenState.isInitialScreen && !screenState.isTimerOpen
+		canStartTyping(state){
+			return state.isInitialScreen && !state.isTimerOpen
 		}
 	},
 	actions: {
@@ -31,22 +29,22 @@ export default createStore({
 		}
 	},
 	mutations: {
-		toggleIsTimerOpen({screenState}){
-			screenState.isTimerOpen = !screenState.isTimerOpen
+		toggleIsTimerOpen(state){
+			state.isTimerOpen = !state.isTimerOpen
 		},
-		toggleIsInitialScreen({screenState}){
-			screenState.isInitialScreen = !screenState.isInitialScreen
+		toggleIsInitialScreen(state){
+			state.isInitialScreen = !state.isInitialScreen
 		},
-		toggleIsStopped({screenState}){
-			screenState.isStopped = !screenState.isStopped
+		toggleIsStopped(state){
+			state.isStopped = !state.isStopped
 		},
-		placeWords({screenState}, words: string[]){
-			screenState.words = words
+		placeWords(state, words: string[]){
+			state.words = words
 		},
-		resetAll({screenState}){
-			screenState.isInitialScreen = true
-			screenState.isStopped = true
-			screenState.words = []
+		resetAll(state){
+			state.isInitialScreen = true
+			state.isStopped = true
+			state.words = []
 		}
 	}
 })

@@ -16,7 +16,7 @@ import { ref, watch } from 'vue'
 const store = useStore()
 const showMetric = ref(false)
 
-watch(store.state.screenState, () => {
+watch(store.state, () => {
 	showMetric.value = store.getters.showMetric
 })
 </script>

@@ -18,7 +18,7 @@ function onStop(){
 	canShow.value = false
 }
 
-watch(store.state.screenState, ()=>{
+watch(store.state, ()=>{
 	canShow.value = !store.getters.showMetric
 })
 
