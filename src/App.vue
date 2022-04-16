@@ -2,9 +2,11 @@
 	<Header/>
 	<metric v-if="showMetric"/>
 	<typing v-else/>
+	<Footer/>
 </template>
 
 <script lang="ts" setup>
+import Footer from '@/components/Footer.vue'
 import Header from '@/components/Header.vue'
 import Typing from '@/views/Typing.vue'
 import { useStore } from 'vuex'

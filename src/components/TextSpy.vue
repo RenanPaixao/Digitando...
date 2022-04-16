@@ -1,17 +1,18 @@
 <template>
 	<div class="container">
-		<div v-for="letter in text" :key="id()" class="letters">
+		<div v-for="letter in text" :key="ids.next()" class="letters">
 				{{letter}}
 		</div>
 	</div>
 </template>
 
 <script lang="ts" setup>
+import { idGenerator } from '../Common/idGenerator'
 import { watch } from 'vue'
 import { useStore } from 'vuex'
 
+const ids = idGenerator()
 const store = useStore()
-const id = ()=> Date.now()
 const props = defineProps<{words: string[]}>()
 
 const text = props.words.join(' ').split('')
@@ -43,29 +44,39 @@ function addClassToLetter(letter: string){
 
 watch(store.state.screenState, (state)=>{
 	//Start indicator blinking
-	if(!state.isStopped){
-		setInterval(()=>{
+	const blinkInterval = setInterval(()=>{
+		if(!state.isStopped){
 			addIndicator(indicatorPosition)
 			const timeout = setTimeout(()=>{
 				removeIndicator(indicatorPosition)
 				clearTimeout(timeout)
 			}, 500)
-		}, 1000)
-	}
+		}else{
+			clearInterval(blinkInterval)
+		}
+	}, 1000)
 })
 
-//TODO add a hook to remove listener
+function removeKeyboardListener(){
+	document.removeEventListener('keypress', handleCaretAndTyping)
+}
+
+function handleCaretAndTyping(eventValue: any){
+	const canContinueTyping = text.length -1 !== indicatorPosition
+	if(canContinueTyping){
+		addClassToLetter(eventValue.key)
+		passIndicatorToNextLetter()
+	}else{
+		store.commit('toggleIsStopped')
+		removeKeyboardListener()
+	}
+}
 watch(store.state.screenState, ()=>{
-	if(store.getters.isTypingStopped){
-		document.addEventListener('keypress', (eventValue)=>{
-			const canContinueTyping = text.length -1 !== indicatorPosition
-			if(canContinueTyping){
-				addClassToLetter(eventValue.key)
-				passIndicatorToNextLetter()
-			}else{
-				store.commit('toggleIsStopped')
-			}
-		})
+	if(store.getters.isTypingRunning){
+		document.addEventListener('keypress', handleCaretAndTyping )
+	}else{
+		indicatorPosition = 0
+		removeKeyboardListener()
 	}
 })
 

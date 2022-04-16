@@ -17,7 +17,7 @@ export default createStore({
 		showMetric({screenState}){
 			return !screenState.isInitialScreen && screenState.isStopped
 		},
-		isTypingStopped({screenState}){
+		isTypingRunning({screenState}){
 			return !screenState.isInitialScreen && !screenState.isStopped
 		},
 		canStartTyping({screenState}){
@@ -42,6 +42,11 @@ export default createStore({
 		},
 		placeWords({screenState}, words: string[]){
 			screenState.words = words
+		},
+		resetAll({screenState}){
+			screenState.isInitialScreen = true
+			screenState.isStopped = true
+			screenState.words = []
 		}
 	}
 })

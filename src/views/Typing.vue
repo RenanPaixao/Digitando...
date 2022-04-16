@@ -15,15 +15,16 @@ const store = useStore()
 const showInitialScreen = ref(true)
 const words = ref([])
 
-store.dispatch('getWords')
-
 watch(store.state.screenState, state => {
 	showInitialScreen.value = state.isInitialScreen
 	
 	if(state.words.length){
 		words.value = state.words
+	}else{
+		words.value = []
+		store.dispatch('getWords')
 	}
-})
+}, {immediate: true})
 </script>
 
 <style lang="scss" scoped>
