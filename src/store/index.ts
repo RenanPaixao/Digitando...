@@ -1,5 +1,6 @@
 import { createStore } from 'vuex'
 import { State } from '../interfaces'
+import Http from '../services/Api'
 
 export default createStore({
 	state: ():State => {
@@ -7,7 +8,8 @@ export default createStore({
 			screenState:{
 				isInitialScreen: true,
 				isTimerOpen: false,
-				isStopped: true
+				isStopped: true,
+				words: []
 			}
 		}
 	},
@@ -22,7 +24,12 @@ export default createStore({
 			return screenState.isInitialScreen && !screenState.isTimerOpen
 		}
 	},
-	actions: {},
+	actions: {
+		async getWords({commit}){
+			const words = await Http.getWords()
+			commit('placeWords', words)
+		}
+	},
 	mutations: {
 		toggleIsTimerOpen({screenState}){
 			screenState.isTimerOpen = !screenState.isTimerOpen
@@ -32,6 +39,9 @@ export default createStore({
 		},
 		toggleIsStopped({screenState}){
 			screenState.isStopped = !screenState.isStopped
+		},
+		placeWords({screenState}, words: string[]){
+			screenState.words = words
 		}
 	}
 })

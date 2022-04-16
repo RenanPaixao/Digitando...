@@ -54,6 +54,7 @@ watch(store.state.screenState, (state)=>{
 	}
 })
 
+//TODO add a hook to remove listener
 watch(store.state.screenState, ()=>{
 	if(store.getters.isTypingStopped){
 		document.addEventListener('keypress', (eventValue)=>{

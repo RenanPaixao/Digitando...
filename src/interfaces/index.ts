@@ -3,7 +3,8 @@ export interface State{
 }
 
 export interface ScreenState {
-	isInitialScreen: boolean,
+	isInitialScreen: boolean
 	isTimerOpen: boolean
 	isStopped: boolean
+	words: string[]
 }
