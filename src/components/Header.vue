@@ -1,6 +1,7 @@
 <template>
-	<header v-if="canShow">
-		<timer :stop="false" @stop="onStop" class="timer"/>
+	<header>
+		<timer :stop="false" @stop="onStop" class="timer" v-if="canShow"/>
+		<h2 v-else>Time's Up!</h2>
 	</header>
 </template>
 
@@ -23,7 +24,7 @@ watch(store.state.screenState, ()=>{
 
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 header{
 	width: 100%;
 	padding-top: 8rem;
@@ -31,6 +32,13 @@ header{
 	justify-content: center;
 	position: absolute;
 	z-index: 9999;
+	
+	h2{
+		font-size: 3rem;
+		
+		font-family: "Fira Code", sans-serif;
+		color: $color-text-yellow;
+	}
 }
 timer{
 	right: 50%;

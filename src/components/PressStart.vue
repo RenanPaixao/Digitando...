@@ -9,7 +9,7 @@
 
 <script lang="ts" setup>
 import { useStore } from 'vuex'
-import { onBeforeUnmount, watch } from 'vue'
+import { watch } from 'vue'
 
 const store = useStore()
 
@@ -25,10 +25,6 @@ watch(store.state.screenState, ()=>{
 		}
 })
 }, {immediate:true})
-
-onBeforeUnmount(()=>{
-	document.removeEventListener('keydown', ()=> {})
-})
 
 </script>
 
