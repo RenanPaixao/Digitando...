@@ -5,11 +5,11 @@
 				<div class="modal-container">
 					<div class="container__indicator"/>
 						<div class="c-inputs">
-							<input type="number" v-model="time.minutes" min="0" max="59">
+							<input type="number" v-model="inputTime.minutes" min="0" max="59">
 							<p>:</p>
-							<input type="number" v-model="time.seconds" min="0" max="59">
+							<input type="number" v-model="inputTime.seconds" min="0" max="59">
 							<div class="c-inputs__images">
-								<img src="@/assets/images/sucess-button.png" alt="choose values button" @click="isChoosing = false">
+								<img src="@/assets/images/sucess-button.png" alt="choose values button" @click="setTime">
 								<img src="@/assets/images/close-button.png" alt="close button" @click="reset">
 							</div>
 					</div>
@@ -24,9 +24,16 @@ import { useStore } from 'vuex'
 
 const emit = defineEmits(['stop'])
 
+interface TimeValues{
+	minutes: number
+	seconds: number
+}
+
 const store = useStore()
 const state  = store.state
-const time:any = reactive({
+
+
+const time:TimeValues = reactive({
 	minutes: 1,
 	seconds: 0
 })
@@ -49,7 +56,7 @@ watch(isChoosing, () =>{
 	store.commit('toggleIsTimerOpen')
 })
 
-// About current time and modal buttons actions
+// About current time and modal button actions
 const currentTime = {
 	minutes: time.minutes,
 	seconds: time.seconds
@@ -65,6 +72,7 @@ function reset(){
 	time.seconds = currentTime.seconds
 	isChoosing.value = false
 }
+
 let timeIn: NodeJS.Timer
 
 watch(()=> state.isStopped, (stop)=>{
@@ -78,11 +86,18 @@ watch(()=> state.isStopped, (stop)=>{
 })
 
 watch(()=> time.seconds, (_, prevTime)=>{
-	if(prevTime === 0 && time.minutes !== 0){
+	if(state.isStopped){
+		return
+	}
+	
+	const isSecondsZero = prevTime === 0 && time.minutes !== 0
+	if(isSecondsZero){
 		time.minutes--
 		time.seconds = 59
 	}
-	if(time.minutes === 0 && time.seconds === 0){
+	
+	const hasNoMoreTime = time.minutes === 0 && time.seconds === 0
+	if(hasNoMoreTime){
 		emit('stop')
 		clearInterval(timeIn)
 	}
