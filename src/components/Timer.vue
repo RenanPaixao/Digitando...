@@ -5,11 +5,11 @@
 				<div class="modal-container">
 					<div class="container__indicator"/>
 						<div class="c-inputs">
-							<input type="number" v-model="inputTime.minutes" min="0" max="59">
+							<input type="number" v-model="time.minutes" min="0" max="59">
 							<p>:</p>
-							<input type="number" v-model="inputTime.seconds" min="0" max="59">
+							<input type="number" v-model="time.seconds" min="0" max="59">
 							<div class="c-inputs__images">
-								<img src="@/assets/images/sucess-button.png" alt="choose values button" @click="setTime">
+								<img src="@/assets/images/sucess-button.png" alt="choose values button" @click="isChoosing = false">
 								<img src="@/assets/images/close-button.png" alt="close button" @click="reset">
 							</div>
 					</div>
@@ -33,7 +33,7 @@ const store = useStore()
 const state  = store.state
 
 
-const time:TimeValues = reactive({
+const time = reactive({
 	minutes: 1,
 	seconds: 0
 })
