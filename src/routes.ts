@@ -1,6 +1,4 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import store from './store'
-import Http from './services/Api'
 import Typing from '@/views/Typing.vue'
 
 const routes = [

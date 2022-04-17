@@ -1,6 +1,6 @@
 <template>
 	<div class="container">
-		<div v-for="letter in text" :key="ids.next()" class="letters">
+		<div v-for="letter in text" :key="ids.next().value ?? 0" class="letters">
 				{{letter}}
 		</div>
 	</div>
