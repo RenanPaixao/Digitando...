@@ -1,11 +1,32 @@
-# Vue 3 + Typescript + Vite
+# Digitando...
 
-This template should help get you started developing with Vue 3 and Typescript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+Este projeto foi pensado como um mini clone do [**monkeytype**](https://monkeytype.com/)
 
-## Recommended IDE Setup
+## Tecnologias necessárias
 
-- [VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar)
+- `Yarn 1.22.17`
 
-## Type Support For `.vue` Imports in TS
+## Tecnologias presentes
 
-Since TypeScript cannot handle type information for `.vue` imports, they are shimmed to be a generic Vue component type by default. In most cases this is fine if you don't really care about component prop types outside of templates. However, if you wish to get actual prop types in `.vue` imports (for example to get props validation when using manual `h(...)` calls), you can enable Volar's `.vue` type support plugin by running `Volar: Switch TS Plugin on/off` from VSCode command palette.
+- `Vue 3.2.25`
+- `Typescript 4.4.4`
+- `Sass 1.49.11`
+- `Vite 2.7.2`
+- `Vuex 4`
+
+## Como rodar?
+
+No código existe um diretório chamado db. Você precisa encontrar essa pasta navegando pelo github 
+e abrir o raw do arquivo requestMock.json e copiar o link até o nome da branch `main/master`
+
+![](src/assets/images/url.png)
+
+Após isso, crie um .env de acordo com o `.env.sample`
+
+Em seguida, se não tiver o yarn instalado, você precisará instalá-lo. [Link com passo a passo da instalação](https://edca.com.br/blog/instalando-o-nodejs-e-o-yarn-em-4-passos)
+
+Após instalar, rode o comando `yarn install` e logo após o `yarn dev` na pasta raiz do seu projeto.
+
+## Versão Deployed
+
+[Site - Digitando...](https://digitando.vercel.app/)
