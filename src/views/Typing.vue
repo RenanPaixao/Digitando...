@@ -1,7 +1,7 @@
 <template>
 	<section class="c-typing">
 		<press-start v-if="showInitialScreen"/>
-		<text-spy :words="words" class="container-words" v-if="words.length"/>
+		<text-spy :words="words" class="container-words" v-if="words.length > 0"/>
 	</section>
 </template>
 
@@ -19,7 +19,7 @@ const words = ref<string[]>([])
 watch(store.state, (state:State) => {
 	showInitialScreen.value = state.isInitialScreen
 	
-	if(state.words.length){
+	if(state.words.length > 0){
 		words.value = state.words
 	}else{
 		words.value = []
