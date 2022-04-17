@@ -1,6 +1,6 @@
 <template>
 	<header>
-		<timer :stop="false" @stop="onStop" class="timer" v-if="canShow"/>
+		<timer :stop="false" @stop="onStop" class="timer" v-if="canShowTimer"/>
 		<h2 v-else>Time's Up!</h2>
 	</header>
 </template>
@@ -11,15 +11,15 @@ import { useStore } from 'vuex'
 import { ref, watch } from 'vue'
 
 const store = useStore()
-const canShow = ref(true)
+const canShowTimer = ref(true)
 
 function onStop(){
 	store.commit('toggleIsStopped')
-	canShow.value = false
+	canShowTimer.value = false
 }
 
 watch(store.state, ()=>{
-	canShow.value = !store.getters.showMetric
+	canShowTimer.value = !store.getters.showMetric
 })
 
 </script>

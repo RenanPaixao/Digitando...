@@ -32,8 +32,7 @@ interface TimeValues{
 const store = useStore()
 const state  = store.state
 
-
-const time = reactive({
+const time:TimeValues = reactive({
 	minutes: 1,
 	seconds: 0
 })
@@ -46,7 +45,7 @@ const timeToShow = computed(()=>{
 
 const isChoosing = ref(false)
 
-function openChooseTimeBox(){
+function openChooseTimeBox(): void{
 	if(state.isInitialScreen){
 		isChoosing.value = true
 	}
@@ -57,7 +56,7 @@ watch(isChoosing, () =>{
 })
 
 // About current time and modal button actions
-const currentTime = {
+const currentTime:TimeValues = {
 	minutes: time.minutes,
 	seconds: time.seconds
 }
@@ -67,15 +66,16 @@ watch(isChoosing, ()=>{
 	currentTime.seconds = time.seconds
 })
 
-function reset(){
+function reset():void{
 	time.minutes = currentTime.minutes
 	time.seconds = currentTime.seconds
 	isChoosing.value = false
 }
 
+// Timer handling section
 let timeIn: NodeJS.Timer
 
-watch(()=> state.isStopped, (stop)=>{
+watch(()=> state.isStopped, (stop: boolean) =>{
 	if(stop){
 		clearInterval(timeIn)
 	}else {
@@ -85,7 +85,7 @@ watch(()=> state.isStopped, (stop)=>{
 	}
 })
 
-watch(()=> time.seconds, (_, prevTime)=>{
+watch(()=> time.seconds, (_, prevTime:number)=>{
 	if(state.isStopped){
 		return
 	}

@@ -16,6 +16,7 @@ import { ref, watch } from 'vue'
 const store = useStore()
 const showMetric = ref(false)
 
+// Toggle between metric view and typing view
 watch(store.state, () => {
 	showMetric.value = store.getters.showMetric
 })

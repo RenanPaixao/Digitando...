@@ -9,22 +9,23 @@
 
 <script lang="ts" setup>
 import { useStore } from 'vuex'
-import { watch } from 'vue'
+import { onMounted } from 'vue'
 
 const store = useStore()
+
+onMounted(()=>{
+	document.addEventListener('keydown', ()=>{
+		if(store.getters.canStartTyping){
+			start()
+		}
+})
+})
 
 function start(){
 	store.commit('toggleIsStopped')
 	store.commit('toggleIsInitialScreen')
 }
 
-watch(store.state, ()=>{
-	document.addEventListener('keydown', ()=>{
-		if(store.getters.canStartTyping){
-			start()
-		}
-})
-}, {immediate:true})
 
 </script>
 

@@ -5,20 +5,20 @@ import Http from '../services/Api'
 export default createStore({
 	state: ():State => {
 		return {
-				isInitialScreen: true,
-				isTimerOpen: false,
-				isStopped: true,
-				words: []
+			isInitialScreen: true,
+			isTimerOpen: false,
+			isStopped: true,
+			words: []
 		}
 	},
 	getters: {
-		showMetric(state){
+		showMetric(state: State): boolean{
 			return !state.isInitialScreen && state.isStopped
 		},
-		isTypingRunning(state){
+		isTypingRunning(state: State): boolean{
 			return !state.isInitialScreen && !state.isStopped
 		},
-		canStartTyping(state){
+		canStartTyping(state: State): boolean{
 			return state.isInitialScreen && !state.isTimerOpen
 		}
 	},
@@ -29,19 +29,19 @@ export default createStore({
 		}
 	},
 	mutations: {
-		toggleIsTimerOpen(state){
+		toggleIsTimerOpen(state: State){
 			state.isTimerOpen = !state.isTimerOpen
 		},
-		toggleIsInitialScreen(state){
+		toggleIsInitialScreen(state: State){
 			state.isInitialScreen = !state.isInitialScreen
 		},
-		toggleIsStopped(state){
+		toggleIsStopped(state:State){
 			state.isStopped = !state.isStopped
 		},
-		placeWords(state, words: string[]){
+		placeWords(state:State, words: string[]){
 			state.words = words
 		},
-		resetAll(state){
+		resetAll(state:State){
 			state.isInitialScreen = true
 			state.isStopped = true
 			state.words = []

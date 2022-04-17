@@ -8,6 +8,7 @@
 
 <script lang="ts" setup>
 import { idGenerator } from '../Common/idGenerator'
+import { State } from '../interfaces'
 import { watch } from 'vue'
 import { useStore } from 'vuex'
 
@@ -20,20 +21,28 @@ const text = props.words.join(' ').split('')
 const allLetters = document.getElementsByClassName('letters')
 let indicatorPosition = 0
 
-function removeIndicator(position: number){
+function handlePositionError(position: number): void{
+	if(allLetters.length  < position || position < 0){
+		throw new RangeError(`The position indicated doesn't exists`)
+	}
+}
+
+function removeIndicator(position: number): void{
+	handlePositionError(position)
 	allLetters[position].classList.remove('indicator')
 }
 
-function addIndicator(position: number){
+function addIndicator(position: number): void{
+	handlePositionError(position)
 	allLetters[position].classList.add('indicator')
 }
 
-function passIndicatorToNextLetter(){
+function passIndicatorToNextLetter(): void{
 	removeIndicator(indicatorPosition)
 	indicatorPosition++
 }
 
-function addClassToLetter(letter: string){
+function addClassToLetter(letter: string): void{
 	const isCorrect = text[indicatorPosition] === letter
 	if(isCorrect){
 		allLetters[indicatorPosition].classList.add('letters--correct')
@@ -42,7 +51,7 @@ function addClassToLetter(letter: string){
 	}
 }
 
-watch(store.state, (state)=>{
+watch(store.state, (state: State)=>{
 	//Start indicator blinking
 	const blinkInterval = setInterval(()=>{
 		if(!state.isStopped){
@@ -57,11 +66,11 @@ watch(store.state, (state)=>{
 	}, 1000)
 })
 
-function removeKeyboardListener(){
+function removeKeyboardListener(): void{
 	document.removeEventListener('keypress', handleCaretAndTyping)
 }
 
-function handleCaretAndTyping(eventValue: any){
+function handleCaretAndTyping(eventValue: KeyboardEvent): void{
 	const canContinueTyping = text.length -1 !== indicatorPosition
 	if(canContinueTyping){
 		addClassToLetter(eventValue.key)
@@ -71,6 +80,7 @@ function handleCaretAndTyping(eventValue: any){
 		removeKeyboardListener()
 	}
 }
+
 watch(store.state, ()=>{
 	if(store.getters.isTypingRunning){
 		document.addEventListener('keypress', handleCaretAndTyping )

@@ -8,14 +8,15 @@
 <script lang="ts" setup>
 import PressStart from '@/components/PressStart.vue'
 import TextSpy from '@/components/TextSpy.vue'
+import { State } from '../interfaces'
 import { useStore } from 'vuex'
 import { ref, watch } from 'vue'
 
 const store = useStore()
 const showInitialScreen = ref(true)
-const words = ref([])
+const words = ref<string[]>([])
 
-watch(store.state, state => {
+watch(store.state, (state:State) => {
 	showInitialScreen.value = state.isInitialScreen
 	
 	if(state.words.length){
